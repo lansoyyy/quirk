@@ -4,6 +4,8 @@ import 'package:quirk/utlis/colors.dart';
 import 'package:quirk/widgets/button_widget.dart';
 import 'package:quirk/widgets/textfield_widget.dart';
 
+import 'home_screen.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -59,8 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: 300,
                 label: 'Login',
                 onPressed: () {
-                  // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  //     builder: (context) => const HomeScreen()));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const HomeScreen()));
                 },
               ),
               const SizedBox(
