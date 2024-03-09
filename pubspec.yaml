@@ -38,6 +38,8 @@ dependencies:
   fluttertoast:
   qr_code_scanner: ^1.0.0
   flutter_barcode_scanner:
+  flutter_auth0_client:
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:

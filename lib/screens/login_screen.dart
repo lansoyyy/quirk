@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth0_client/flutter_auth0_client.dart';
 
 import 'package:quirk/utlis/colors.dart';
 import 'package:quirk/widgets/button_widget.dart';
-import 'package:quirk/widgets/textfield_widget.dart';
 
 import 'home_screen.dart';
 
@@ -17,6 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,40 +30,28 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 100,
               ),
-              // Sample logo
               Image.asset(
                 'assets/images/logo.png',
                 height: 200,
               ),
               const SizedBox(
-                height: 75,
-              ),
-              TextFieldWidget(
-                borderColor: primary,
-                label: 'Email',
-                controller: emailController,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextFieldWidget(
-                isObscure: true,
-                borderColor: primary,
-                label: 'Password',
-                controller: passwordController,
-                showEye: true,
-              ),
-              const SizedBox(
-                height: 30,
+                height: 200,
               ),
               ButtonWidget(
                 radius: 10,
                 color: primary,
                 width: 300,
                 label: 'Login',
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const HomeScreen()));
+                onPressed: () async {
+                  await FlutterAuth0Client(
+                          scheme: 'https',
+                          clientId: 'l6ryfkQlxJHCr7EmpsUBbo2TxlNvaFtV',
+                          domain: 'dev-1x4l6wkco1ygo6sx.us.auth0.com')
+                      .login()
+                      .whenComplete(() {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const HomeScreen()));
+                  });
                 },
               ),
               const SizedBox(
