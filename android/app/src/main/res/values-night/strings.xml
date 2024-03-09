@@ -1,0 +1,6 @@
+
+
+<resources>
+    <string name="com_auth0_domain">dev-1x4l6wkco1ygo6sx.us.auth0.com</string>
+    <string name="com_auth0_scheme">https</string>
+</resources>
