@@ -9,11 +9,6 @@
     <item name="android:windowBackground">@drawable/launch_background</item>
   </style>
 
-  <string name="com_auth0_client_id">
-      <![CDATA[l6ryfkQlxJHCr7EmpsUBbo2TxlNvaFtV]]>
-  </string>
-  <string name="com_auth0_domain">
-      <![CDATA[dev-1x4l6wkco1ygo6sx.us.auth0.com]]>
-  </string>
+
 
 </resources>
