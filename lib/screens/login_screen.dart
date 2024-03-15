@@ -48,10 +48,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           clientId: 'l6ryfkQlxJHCr7EmpsUBbo2TxlNvaFtV',
                           domain: 'dev-1x4l6wkco1ygo6sx.us.auth0.com')
                       .login()
-                      .whenComplete(() {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const HomeScreen()));
-                  });
+                      .then((value) => Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen())));
                 },
               ),
               const SizedBox(
