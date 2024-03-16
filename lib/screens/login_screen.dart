@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth0_client/flutter_auth0_client.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'package:quirk/utlis/colors.dart';
 import 'package:quirk/widgets/button_widget.dart';
@@ -17,6 +18,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
+
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +51,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           clientId: 'l6ryfkQlxJHCr7EmpsUBbo2TxlNvaFtV',
                           domain: 'dev-1x4l6wkco1ygo6sx.us.auth0.com')
                       .login()
-                      .then((value) => Navigator.of(context).push(
+                      .then((value) => Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                               builder: (context) => const HomeScreen())));
+
+                  box.write('hasLoggedIn', true);
                 },
               ),
               const SizedBox(

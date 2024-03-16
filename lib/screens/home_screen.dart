@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_auth0_client/flutter_auth0_client.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:quirk/screens/login_screen.dart';
 import 'package:quirk/utlis/colors.dart';
 import 'package:quirk/widgets/text_widget.dart';
 
@@ -49,10 +52,32 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  final box = GetStorage();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () async {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const LoginScreen()));
+
+              box.write('hasLoggedIn', true);
+
+              await FlutterAuth0Client(
+                      scheme: 'https',
+                      clientId: 'l6ryfkQlxJHCr7EmpsUBbo2TxlNvaFtV',
+                      domain: 'dev-1x4l6wkco1ygo6sx.us.auth0.com')
+                  .logout();
+            },
+            icon: const Icon(
+              Icons.logout,
+            ),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
