@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 
 import 'package:quirk/utlis/colors.dart';
 import 'package:quirk/widgets/button_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_screen.dart';
 
@@ -46,16 +47,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: 300,
                 label: 'Login',
                 onPressed: () async {
+                  final prefs = await SharedPreferences.getInstance();
+
                   await FlutterAuth0Client(
                           scheme: 'https',
                           clientId: 'l6ryfkQlxJHCr7EmpsUBbo2TxlNvaFtV',
                           domain: 'dev-1x4l6wkco1ygo6sx.us.auth0.com')
                       .login()
-                      .then((value) => Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                              builder: (context) => const HomeScreen())));
-
-                  box.write('hasLoggedIn', true);
+                      .then((value) {
+                    prefs.setBool('log', true);
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const HomeScreen()));
+                  });
                 },
               ),
               const SizedBox(

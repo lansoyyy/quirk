@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:quirk/screens/login_screen.dart';
 import 'package:quirk/utlis/colors.dart';
 import 'package:quirk/widgets/text_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -61,16 +62,11 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () async {
+              final prefs = await SharedPreferences.getInstance();
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => const LoginScreen()));
 
-              box.write('hasLoggedIn', true);
-
-              await FlutterAuth0Client(
-                      scheme: 'https',
-                      clientId: 'l6ryfkQlxJHCr7EmpsUBbo2TxlNvaFtV',
-                      domain: 'dev-1x4l6wkco1ygo6sx.us.auth0.com')
-                  .logout();
+              prefs.setBool('log', false);
             },
             icon: const Icon(
               Icons.logout,
