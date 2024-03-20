@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_auth0_client/flutter_auth0_client.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get_storage/get_storage.dart';
@@ -63,10 +64,47 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             onPressed: () async {
               final prefs = await SharedPreferences.getInstance();
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const LoginScreen()));
 
-              prefs.setBool('log', false);
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        title: const Text(
+                          'Logout Confirmation',
+                          style: TextStyle(
+                              fontFamily: 'QBold', fontWeight: FontWeight.bold),
+                        ),
+                        content: const Text(
+                          'Are you sure you want to Logout?',
+                          style: TextStyle(fontFamily: 'QRegular'),
+                        ),
+                        actions: <Widget>[
+                          MaterialButton(
+                            onPressed: () => Navigator.of(context).pop(true),
+                            child: const Text(
+                              'Close',
+                              style: TextStyle(
+                                  fontFamily: 'QRegular',
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          MaterialButton(
+                            onPressed: () async {
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const LoginScreen()));
+
+                              prefs.setBool('log', false);
+                            },
+                            child: const Text(
+                              'Continue',
+                              style: TextStyle(
+                                  fontFamily: 'QRegular',
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ));
             },
             icon: const Icon(
               Icons.logout,
@@ -80,6 +118,11 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            TextWidget(
+              text: 'User: user1hshegsha',
+              fontSize: 14,
+              fontFamily: 'Medium',
+            ),
             TextWidget(
               text: 'QR Code Value: $qrCode',
               fontSize: 18,
